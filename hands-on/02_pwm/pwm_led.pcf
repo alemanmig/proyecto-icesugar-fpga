@@ -1,0 +1,10 @@
+# =============================================================================
+# Pin Constraint File — Proyecto PWM LED
+# Chip: Lattice iCE40LP1K-CM36
+# =============================================================================
+
+# Reloj principal: 12 MHz (provisto por iCELink)
+set_io clk  D1
+
+# LED amarillo integrado (activo en alto: 1 = encendido)
+set_io led  B6
