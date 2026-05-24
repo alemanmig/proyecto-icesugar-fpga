@@ -120,6 +120,58 @@ make flash
 
 ---
 
+## Simulación con testbench
+
+El proyecto incluye `counter_tb.v` para verificar el diseño sin necesitar la placa.
+
+```bash
+make sim
+```
+
+Esto ejecuta internamente:
+```bash
+iverilog -o counter_sim counter_tb.v counter.v   # compilar
+vvp counter_sim                                  # simular → genera counter.vcd
+```
+
+### El problema del prescaler en simulación
+
+`leds` usa bits `[28:21]` del contador interno. Para que `leds` cambie de 0 a 1, el contador necesita llegar a 2²¹ = **2,097,152 ciclos** — simular eso directamente tomaría minutos. La solución es pre-cargar el contador a valores justo antes de cada transición de interés, exactamente igual que en el testbench del proyecto 01 (Blink).
+
+### Segmentos del testbench
+
+El testbench simula 5 transiciones clave, cada una con ~40 ciclos de contexto:
+
+| Segmento | Pre-carga del counter | Qué se observa |
+|----------|-----------------------|----------------|
+| 1 | `0x000000000` | Estado inicial — `leds = 00000000` |
+| 2 | `0x01FFFF0` | Transición `leds` **0 → 1** (primer LED D0 enciende) |
+| 3 | `0x03FFFF0` | Transición `leds` **1 → 2** |
+| 4 | `0x0FFFFFF0` | Transición `leds` **127 → 128** — D7 enciende por primera vez, todos los demás se apagan |
+| 5 | `0x1FFFFFF0` | Transición `leds` **255 → 0** — el contador de 29 bits desborda y reinicia |
+
+El segmento 4 es el más interesante: `01111111 → 10000000`. Todos los bits inferiores se apagan simultáneamente cuando el carry se propaga hasta el bit 7. Esto es el **carry ripple** del sumador binario, visible en el VCD.
+
+### Visualizar en WaveTrace (VS Code)
+
+1. Correr `make sim` — genera `counter.vcd`
+2. Click derecho sobre `counter.vcd` en el explorador de VS Code
+3. Seleccionar **"Open with WaveTrace"**
+4. En el VCD verás `clk`, `leds[7:0]` y `uut.counter` como ondas segmentadas
+
+### Output esperado en terminal
+
+```
+[t=1680] Inicial:       leds = 00000000 (  0)
+[t=...] Tras 0→1:     leds = 00000001 (  1)
+[t=...] Tras 1→2:     leds = 00000010 (  2)
+[t=...] Tras 127→128: leds = 10000000 (128)
+[t=...] Tras 255→0:   leds = 00000000 (  0)
+Simulación completada.
+```
+
+---
+
 ## Resultado esperado
 
 Con el PMOD-LED enchufado, verás los LEDs contando en binario. El LED D0 (derecha) parpadea rápido, D1 a la mitad de velocidad, D2 a la mitad del anterior, y así sucesivamente. D7 (izquierda) solo cambia cada ~44 segundos.

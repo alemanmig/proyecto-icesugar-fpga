@@ -27,10 +27,12 @@ Instrucciones de instalación en macOS: [docs/setup_macos.md](docs/setup_macos.m
 ```
 proyecto-icesugar-fpga/
 ├── docs/
-│   └── setup_macos.md        ← Instalación del toolchain en macOS
+│   ├── setup_macos.md        ← Instalación del toolchain en macOS
+│   └── guia_pcf_y_pines.md   ← Referencia de pines CM36 y sintaxis PCF
 ├── hands-on/
 │   ├── 01_blink/             ← LED parpadeante (Hola Mundo)
 │   ├── 02_pwm/               ← Control de brillo por PWM
+│   ├── 03_counter/           ← Contador binario con PMOD-LED
 │   └── README.md             ← Índice de proyectos
 └── README.md                 ← Este archivo
 ```
@@ -41,6 +43,7 @@ proyecto-icesugar-fpga/
 |---|----------|----------|-----------|
 | 01 | [Blink](hands-on/01_blink/) | LED amarillo parpadea cada ~0.7 s | `reg`, `always @(posedge clk)`, divisor de frecuencia |
 | 02 | [PWM](hands-on/02_pwm/) | LED sube y baja de brillo suavemente | PWM, duty cycle, comparador, operador ternario |
+| 03 | [Counter](hands-on/03_counter/) | Contador binario 0–255 en PMOD-LED de 8 LEDs | bus `[7:0]`, PMOD, prescaler multi-bit, testbench |
 
 ## Quick Start
 

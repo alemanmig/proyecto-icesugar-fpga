@@ -6,6 +6,7 @@ Cada proyecto introduce conceptos nuevos y se construye sobre el anterior. Todos
 |---|----------|--------------------|--------|
 | 01 | [Blink — LED parpadeante](01_blink/) | Divisor de frecuencia, contador, flip-flops | ✅ Verificado |
 | 02 | [PWM — Control de brillo](02_pwm/) | PWM, duty cycle, comparador, operador ternario | ✅ Verificado |
+| 03 | [Counter — Contador binario](03_counter/) | Bus `[7:0]`, PMOD, prescaler multi-bit, testbench | ✅ Verificado |
 
 ## Cómo usar estos proyectos
 
