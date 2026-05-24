@@ -1,0 +1,18 @@
+# =============================================================================
+# Pin Constraint File (PCF) — iCESugar-Nano
+# Chip: Lattice iCE40LP1K-CM36 (BGA36, 0.4mm pitch)
+# =============================================================================
+# Este archivo le dice al place & route (nextpnr) qué pin físico del chip
+# corresponde a cada señal de nuestro diseño Verilog.
+#
+# En el paquete CM36 los pines se nombran con letra+número (A1, B6, D1...)
+#
+# Formato:
+#   set_io <nombre_señal_en_verilog> <nombre_de_pin_CM36>
+# =============================================================================
+
+# Reloj principal: 12 MHz (provisto por iCELink)
+set_io clk  D1
+
+# LED amarillo integrado en la placa (activo en alto: 1 = encendido)
+set_io led  B6
