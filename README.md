@@ -27,9 +27,11 @@ Instrucciones de instalación en macOS: [docs/setup_macos.md](docs/setup_macos.m
 ```
 proyecto-icesugar-fpga/
 ├── docs/
-│   ├── setup_macos.md        ← Instalación del toolchain en macOS
-│   ├── guia_pcf_y_pines.md   ← Referencia de pines CM36 y sintaxis PCF
-│   └── guia_makefile.md      ← Cómo funciona el Makefile y cómo adaptarlo
+│   ├── setup_macos.md              ← Instalación del toolchain en macOS
+│   ├── guia_entorno_herramientas.md← Qué hace cada herramienta del toolchain
+│   ├── guia_pcf_y_pines.md         ← Referencia de pines CM36 y sintaxis PCF
+│   ├── guia_makefile.md            ← Cómo funciona el Makefile y cómo adaptarlo
+│   └── guia_yosys.md               ← Síntesis con Yosys: comandos, banderas y diagnóstico
 ├── hands-on/
 │   ├── 01_blink/             ← LED parpadeante (Hola Mundo)
 │   ├── 02_pwm/               ← Control de brillo por PWM
